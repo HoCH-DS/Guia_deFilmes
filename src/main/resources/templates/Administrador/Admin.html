@@ -120,9 +120,9 @@ span{
             <h1 class="titulo">Form Admin</h1>
 
             <form id="login" action="salvarAdministrador" class="input-goup" method="post">
-            	<input type="hidden" name="id">
-                <input type="text" name="nome" class="input-field" placeholder="Nome" required>
-                <input type="email"  name="email" class="input-field" placeholder="Email" required>
+            	<input type="hidden" name="id"  th:value="${admin?.id}">
+                <input type="text" name="nome" class="input-field" placeholder="Nome" th:value="${admin?.nome}" required>
+                <input type="email"  name="email" class="input-field" placeholder="Email" th:value="${admin?.email}" required>
                 <input type="password" name="senha" class="input-field" placeholder="Senha" required>     
                 <button type="submit" class="submit-btn">Log In</button>
             </form> 

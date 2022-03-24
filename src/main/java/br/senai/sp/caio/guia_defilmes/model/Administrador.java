@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
+import br.senai.sp.caio.guia_defilmes.util.HashUtil;
 import lombok.Data;
 
 //para gerar o set e o get
@@ -23,4 +24,10 @@ public class Administrador {
 	private String email;
 	@NotEmpty
 	private String senha;
-}
+	
+	//metodo para setar a senha aplicando o hash
+	public void setSenha(String senha) {
+		//aplica o hash e seta a senha no admin
+		this.senha = HashUtil.hash256(senha);
+	}
+} 

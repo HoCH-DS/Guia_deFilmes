@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeLeaf.org">
+<header>
+	<meta charset="UTF-8">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<title>Guia de Filmes</title>
+</header>
+<style>
+* {
+	margin: 0 auto;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: sans-serif;
+	height: 50vh;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	font-size: 0.9rem;
+	background-color: #eee;
+}
+
+table {
+	border-collapse: collapse;
+	box-shadow: 0 5px 10px #c3c3c3;
+	background-color: #fff;
+	text-align: left;
+	/*  overflow: hidden; */
+	margin: 0 300px 0 300px;
+}
+
+thead {
+	box-shadow: 0 10px 10px #c4c4c4;
+}
+
+th {
+	padding: 1rem 2rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1rem;
+	font-size: 0.7rem;
+	font-weight: 900;
+}
+
+td {
+	padding: 1rem 2rem;
+	text-align: center;
+}
+
+.editar {
+	font-size: 1em;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #14FF00;
+}
+
+.excluir {
+	font-size: 1em;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #FF0000;
+}
+
+.id-style {
+	font-size: 1em;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #0084ff;
+}
+
+.btn {
+	padding: 30px;
+	border-radius: 50%;
+	border: 5px solid #0084ff;
+	margin-bottom: 100px;
+}
+
+.estatisticas {
+	text-decoration: none;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #0084ff;
+}
+</style>
+<body>
+	<table>
+		<tr>
+			<th class="id-style">Id</th>
+			<th>Nome</th>
+			<th>E-mail</th>
+			<th class="editar">Alterar</th>
+			<th class="excluir">Excluir</th>
+		</tr>
+		<tbody>
+			<tr th:each="adm:${admins}">
+				<td th:text="${adm.id}" class="id-style"/>
+				<td th:text="${adm.nome}" />
+				<td th:text="${adm.email}" />
+				<td><a th:href="@{/alterarAdmin(id=${adm.id})}">Alterar</a></td>
+				<td><a th:href="@{/excluirAdmin(id=${adm.id})}">Excluir</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<ul class="pagination">
+		
+		<li th:class="${PaginaAtual == 1 ? 'disabled' : ''}">
+			<a th:href="${PaginaAtual > 1 ? PaginaAtual - 1 : '#'}">
+			<i class="material-icons">chevron_left</i></a>
+		</li>
+		
+		<li th:each="p:${numPaginas}" th:class="${PaginaAtual == p ? 'active' : 'wave-effect'}">
+			<a th:href="${p}"><span th:text="${p}"></span></a>
+		</li>
+		
+		<li th:class="${PaginaAtual == totalPaginas ? 'disabled' : ''}">
+			<a th:href="${PaginaAtual < totalPaginas ? PaginaAtual + 1 : '#'}">
+			<i class="material-icons">chevron_right</i></a>
+		</li>
+	</ul>
+</body>
+</html>

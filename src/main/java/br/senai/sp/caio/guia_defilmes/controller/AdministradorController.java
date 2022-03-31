@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.senai.sp.caio.guia_defilmes.model.Administrador;
 import br.senai.sp.caio.guia_defilmes.repository.AdminRepository;
+import br.senai.sp.caio.guia_defilmes.util.HashUtil;
 
 
 
@@ -39,6 +40,28 @@ public class AdministradorController {
 			attr.addFlashAttribute("mensagem_erro", "Verifique os Campos...");
 			return "redirect:formAdmin";
 		}
+		
+		// verifica se esta sendo feita uma alteração ao inves de uma inserção
+		boolean alteracao = admin.getId() != null ? true : false;
+
+		
+		// verifica se a senha esta vazia
+		if (admin.getSenha().equals(HashUtil.hash256(""))) {
+		if (!alteracao) {
+		// extrai a parte do email antes do @
+		String parte = admin.getEmail().substring(0, admin.getEmail().indexOf("@"));
+
+
+		// defina a senha dio admin
+		admin.setSenha(parte);
+		} else {
+		//busca a senha atual
+		String hash = repository.findById(admin.getId()).get().getSenha();
+		//seta a senha com hash
+		admin.setSenhaComHash(hash);
+		}
+		}
+		
 		try {
 			repository.save(admin);
 			attr.addFlashAttribute("mensagem_sucesso","Admin Cadastrado com Sucesso ID:" + admin.getId());

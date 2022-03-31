@@ -2,7 +2,7 @@
 <html xmlns:th="https://thymeLeaf.org">
 <header>
 <meta charset="UTF-8">
-<title>Tela Administrador</title>
+<title>Categorias</title>
 </header>
 <style>
 *{
@@ -117,13 +117,13 @@ span{
 	<div class="hero">
         <div class="form-box">
            
-            <h1 class="titulo">Form Admin</h1>
+            <h1 class="titulo">Form Categorias</h1>
 
-            <form id="login" action="salvarAdministrador" class="input-goup" method="post">
-            	<input type="hidden" name="id"  th:value="${admin?.id}">
-                <input type="text" name="nome" class="input-field" placeholder="Nome" th:value="${admin?.nome}" required>
-                <input type="email"  name="email" class="input-field" placeholder="Email" th:value="${admin?.email}" required>
-                <input type="password" name="senha" class="input-field" placeholder="Senha">     
+            <form id="login" action="salvarCategorias" class="input-goup" method="post">
+            	<input type="hidden" name="id"  th:value="${categ?.id}">
+                <input type="text" name="nome" class="input-field" placeholder="Nome" th:value="${categ?.nome}" required>
+                <input type="text" name="descricao" class="input-field" placeholder="Descrição" th:value="${categ?.descricao}" required>
+                <input type="text" name="palavra_chave" class="input-field" placeholder="Palavra Chave" th:value="${categ?.palavra_chave}" required>
                 <button type="submit" class="submit-btn">Log In</button>
             </form> 
             

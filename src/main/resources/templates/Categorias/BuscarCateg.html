@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeLeaf.org">
+<header>
+<meta charset="UTF-8">
+<title>Buscar</title>
+</header>
+<style>
+	 * {
+        margin: 0 auto;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: sans-serif;
+        height: 50vh;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.9rem;
+        background-color: #eee;
+    }
+
+    table {
+        border-collapse: collapse;
+        box-shadow: 0 5px 10px #c3c3c3;
+        background-color: #fff;
+        text-align: left;
+        overflow: hidden;
+    }
+
+    thead {
+        box-shadow: 0 10px 10px #c4c4c4;
+    }
+
+    th {
+        padding: 1rem 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+        font-size: 0.7rem;
+        font-weight: 900;
+    }
+
+    td {
+        padding: 1rem 2rem;
+        text-align: center;
+    }
+
+    .editar {
+        font-size: 1em;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #14FF00;
+    }
+
+    .excluir {
+        font-size: 1em;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #FF0000;
+    }
+
+    .id-style {
+        font-size: 1em;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #0084ff;
+    }
+
+    .btn {
+        padding: 30px;
+        border-radius: 50%;
+        border: 5px solid #0084ff;
+        margin-bottom: 100px;
+
+    }
+
+    .submit-btn {
+        width: 85%;
+        padding: 10px 30px;
+        cursor: pointer;
+        display: block;
+        margin: auto;
+        border: 0;
+        outline: none;
+        border-radius: 30px;
+        background: linear-gradient(to right, #c02aac, #41BFB3);
+        margin: 10px;
+    }
+
+    .estatisticas {
+        text-decoration: none;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #0084ff;
+    }
+
+    .title {
+        position: absolute;
+        top: 0;
+        right: 40%;
+        margin-bottom: 50px;
+    }
+
+    .text {
+        font-size: 38px;
+        font-weight: 500;
+        color: #0084ff;
+        text-transform: uppercase;
+    }
+
+    span {
+        font-size: 36px;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: red;
+    }
+
+    .input-goup {
+        padding: 30px;
+        background-color: #fff;
+        margin: 50px;
+    }
+
+    .input-field {
+        width: 100%;
+        padding: 10px 0;
+        margin: 5px 0;
+        border-left: 0;
+        border-top: 0;
+        border-right: 0;
+        border-bottom: 1px solid #999;
+        outline: none;
+        background: transparent;
+    }
+</style>
+<body>
+	 <div class="hero">
+        <div class="form-box">
+            <form action="BuscarCateg" class="input-goup">
+                <input type="search" name="palavra_chave" class="input-field" placeholder="Palavra Chave" required>
+                <select name="select">
+                	<option value="palavra_chave">Palavra Chave</option>
+                	<option value="nome">Nome</option>
+                	<option value="descricao">Descrição</option>
+                </select>
+                
+                <button type="submit" class="submit-btn">Buscar</button>
+            </form>   
+        </div>
+    </div>
+</body>
+</html>

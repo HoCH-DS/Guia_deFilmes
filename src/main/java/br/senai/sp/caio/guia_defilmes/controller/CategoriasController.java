@@ -105,4 +105,29 @@ public class CategoriasController {
 		repository.deleteById(id);
 		return "redirect:listarCategorias/1";
 	}
+	
+	//CHAMA O FORMULARIO PARA BUSCAR
+	@RequestMapping("formBuscar")
+	public String Buscar(String palavra_chave) {
+		return "Categorias/BuscarCateg";
+	}
+	
+	
+	//BUSCAR CATEGORIAS PELA PALAVRA CHAVE
+	@RequestMapping("BuscarCateg")
+	public String buscarCateg(String select, String palavra_chave , Model model) {
+		
+		if(select.equals("palavra_chave")) {
+			model.addAttribute("categs", repository.BuscarPalavraChaveLike(palavra_chave));
+			return "Categorias/ListarCateg";
+		}else if(select.equals("nome")) {
+			model.addAttribute("categs", repository.BuscarNome(palavra_chave));
+			return "Categorias/ListarCateg";
+		}else {
+			model.addAttribute("categs", repository.BuscarDescricao(palavra_chave));
+			return "Categorias/ListarCateg";
+		}
+		
+		
+	}
 }

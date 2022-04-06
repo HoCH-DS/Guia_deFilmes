@@ -25,4 +25,6 @@ public interface CategoriasRepository extends PagingAndSortingRepository<Categor
 	@Query("SELECT ctg FROM Categorias ctg WHERE ctg.descricao LIKE %:p%")
 	public List<Categorias> BuscarDescricao(@Param("p") String palavra_chave);
 	
+	
+	public List<Categorias> findAllByOrderByNomeAsc();
 }

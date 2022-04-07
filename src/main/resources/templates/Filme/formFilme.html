@@ -18,7 +18,7 @@
 }
 .form-box{
     width: 380px;
-    height: 580px;
+    height: 620px;
     position: relative;
     margin: 6% auto;
     padding: 5px;
@@ -119,18 +119,20 @@ span{
            
             <h1 class="titulo">Form Filme</h1>
 
-         	   <form id="login" action="salvarFilmes" class="input-goup" method="post">
+         	   <form id="login" action="salvarFilmes" class="input-goup" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+            	
             	<input type="hidden" name="id"  >
                 <input type="text" name="nome" class="input-field" placeholder="Nome" required>
                 <input type="text" name="descricao" class="input-field" placeholder="Descrição" required>    
                 <input type="text" name="classIndicativa" class="input-field" placeholder="Class Indicativa"  required>    
                 <input type="number" name="tempoFilme" class="input-field" placeholder="Tempo Filme" required>    
-                
-               	<select class="tp-produto">           			
-                		<option th:each="t: ${tipos}" th:text="${t.nome}" name="tipo"></option>     
-                </select>               
-                
-                <button type="submit" class="submit-btn">Salvar</button>
+	            <input type="file" name="fileFotos" multiple accept="image/*" class="input-field" placeholder="Tempo Filme" required>    
+               	
+               	<select class="tp-produto" name="tipo">           			
+                		<option th:each="t: ${tipos}" th:text="${t.nome}" th:value="${t.id}" ></option>        		   
+                </select>
+                               
+                <button type="submit" class="submit-btn">Salvar</button>         
             
             </form> 
             

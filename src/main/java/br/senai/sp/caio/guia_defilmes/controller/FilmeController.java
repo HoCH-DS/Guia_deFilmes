@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.senai.sp.caio.guia_defilmes.model.Filme;
@@ -30,8 +32,10 @@ public class FilmeController {
 	}
 
 	//SALVAR FILMES
-		@RequestMapping(value = "salvarFilmes", method = RequestMethod.POST)
-		public String salvarFilmes(@Valid Filme film, BindingResult result, RedirectAttributes attr) {
+		@RequestMapping(value = "salvarFilmes")
+		public String salvarFilmes(@Valid Filme film, BindingResult result,
+				RedirectAttributes attr, @RequestParam("fileFotos") MultipartFile[] fileFotos) {
+			System.out.println(fileFotos.length); 
 			
 			if(result.hasErrors()) {
 				attr.addFlashAttribute("mensagem_erro", "Verifique os Campos...");
@@ -49,5 +53,6 @@ public class FilmeController {
 			return "redirect:Filme";
 		}
 
+	
 
 }

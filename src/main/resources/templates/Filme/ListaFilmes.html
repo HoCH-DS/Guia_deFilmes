@@ -88,20 +88,31 @@ td {
 			<th class="id-style">Id</th>
 			<th>Nome</th>
 			<th>Descrição</th>
-			<th>Palavra Chave</th>
+			<th>Fotos</th>
+			<th>Tipo</th>
+			<th>Class Indicativa</th>
+			<th>Tempo Filme</th>
 			<th class="editar">Alterar</th>
 			<th class="excluir">Excluir</th>
 		</tr>
 		<tbody>
-			<tr th:each="ctg:${categs}">
-				<td th:text="${ctg.id}" class="id-style"/>
-				<td th:text="${ctg.nome}" />
-				<td th:text="${ctg.descricao}" />
+		
+		<tr th:each="flm:${filmes}">
+				<td th:text="${flm.id}" class="id-style"/>
+				<td th:text="${flm.nome}" />
+				<td th:text="${flm.descricao}" />
+				<td th:text="${flm.fotos}" />
+				<td th:text="${flm.tipo?.nome}" />
+				<td th:text="${flm.classIndicativa}" />
+				<td th:text="${flm.tempoFilme}" />
+			
 				
-				
-				<td><a th:href="@{/alterarCateg(id=${ctg.id})}">Alterar</a></td>
-				<td><a th:href="@{/excluirCateg(id=${ctg.id})}">Excluir</a></td>
+				<td><a th:href="@{/alterarFilm(id=${flm.id})}">Alterar</a></td>
+				<td><a th:href="@{/excluirFilm(id=${flm.id})}">Excluir</a></td>
 			</tr>
+		
+		
+			
 		</tbody>
 	</table>
 	<ul class="pagination">

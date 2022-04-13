@@ -121,15 +121,31 @@ span{
 
          	   <form id="login" action="salvarFilmes" class="input-goup" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
             	
-            	<input type="hidden" name="id"  >
-                <input type="text" name="nome" class="input-field" placeholder="Nome" required>
-                <input type="text" name="descricao" class="input-field" placeholder="Descrição" required>    
-                <input type="text" name="classIndicativa" class="input-field" placeholder="Class Indicativa"  required>    
-                <input type="number" name="tempoFilme" class="input-field" placeholder="Tempo Filme" required>    
-	            <input type="file" name="fileFotos" multiple accept="image/*" class="input-field" placeholder="Tempo Filme" required>    
+            	<input type="hidden" name="id" th:value="${film?.id}" >
+                <input type="text" name="nome" class="input-field" placeholder="Nome" required th:value="${film?.nome}" >
+                <input type="text" name="descricao" class="input-field" placeholder="Descrição" required th:value="${film?.descricao}" >    
+                <input type="text" name="classIndicativa" class="input-field" placeholder="Class Indicativa"  required th:value="${film?.classIndicativa}" >    
+                <input type="number" name="tempoFilme" class="input-field" placeholder="Tempo Filme" required th:value="${film?.tempoFilme}" >    
+	            
+	            <input type="file" name="fileFotos" multiple accept="image/*" class="input-field" placeholder="Tempo Filme" required  >    
+               	
+               	<div th:if="${film?.fotos?.length > 0}">
+               		<h6>Fotos Cadastradas</h6>
+               		<div>
+               			<ul>
+               				<li th:each="foto, i : ${film?.verFotos()}">
+               					<img th:src="${foto}" height="50px">
+               					<a th:href="@{/excluirFotoFilm(id=${film.id}, numFoto=${i.index})}">
+               						D
+               					</a>
+               					
+               				</li>
+               			</ul>
+               		</div>
+               	</div>
                	
                	<select class="tp-produto" name="tipo">           			
-                		<option th:each="t: ${tipos}" th:text="${t.nome}" th:value="${t.id}" ></option>        		   
+                		<option th:each="t: ${tipos}" th:text="${t.nome}" th:value="${t.id}" th:selected="${t.id == film?.tipo?.id}" ></option>        		   
                 </select>
                                
                 <button type="submit" class="submit-btn">Salvar</button>         

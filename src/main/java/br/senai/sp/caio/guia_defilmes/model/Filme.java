@@ -23,4 +23,8 @@ public class Filme {
 	private Categorias tipo;
 	private String classIndicativa;
 	private int tempoFilme;
+	//metodo para criar um Vetor de fotos
+	public String[] verFotos() {
+		return this.fotos.split(";");
+	}
 }

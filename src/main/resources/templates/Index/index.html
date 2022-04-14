@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeLeaf.org">
+<header>
+<meta charset="UTF-8">
+<title>Tela Administrador</title>
+</header>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+
+.bd-grid{
+    display: grid;
+    grid-template-columns: 100%;
+    column-gap: 2rem;
+    width: calc(100% - 2rem);
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+.l-header{
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: #eee;
+}
+.nav{
+    height: 5rem;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav__menu{
+    position: fixed;
+    top: 3rem;
+    left: -100%;
+    width: 70%;
+    height: 100vh;
+    padding: 2rem;
+    background-color: transparent;
+    transition: .5s;
+}
+.nav__list{
+    margin: 200px auto;
+}
+.nav__item{
+    margin: 100px auto;
+    list-style: none; list-style: none;
+
+}
+.nav__link{
+    text-decoration: none;
+    font-size: 1.1em;
+    color: #000;
+    display: table;
+    padding: 10px;
+}
+.nav__logo{
+     margin-top: 15px;
+}
+.nav__togglen, .nav__shop{
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+.show{
+    left: 0;
+}
+.active1{
+    position: relative;
+}
+.active1::before{
+    content: '';
+    position: absolute;
+    bottom: -.5rem;
+    left: 45%;
+    width: 4px;
+    height: 4px;
+    background-color: #000;
+    border-radius: 50%;
+}
+.scroll-header{
+    background-color: transparent;
+    box-shadow: 0 2px 4px rgba(0, 0, 0 ,.1);
+}
+
+
+.hero{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.form-box{
+    width: 380px;
+    height: 400px;
+    position: relative;
+    margin: 6% auto;
+    padding: 5px;
+    background-color: #fff;
+    box-shadow: 15px 0 35px rgba(0, 0, 0, 0.1),
+    0 -15px 35px rgba(0, 0, 0, 0.1),
+    0 15px 35px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+.input-goup{
+    top: 130px;
+    position: absolute;
+    width: 280px;
+    transition: .5s;
+}
+.input-field{
+    width: 100%;
+    padding: 10px 0;
+    margin: 20px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+.input-field:focus{
+    border-bottom: 1px solid rgb(50, 252, 0);
+    
+}
+.submit-btn{
+    position: relative;
+    width: 85%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+    background-color: #eee;
+    transition: 0.5s;
+}
+.submit-btn:hover{
+    background-color: #777;
+    color: #fff;
+    /* transform: rotate(360deg); */
+}
+.check-box{
+    margin: 30px 10px 30px 0;
+}
+span{
+    color: #777;
+    font-size: 12px;
+    bottom: 68px;
+    position: absolute;
+}
+#login{
+    left: 50px;
+}
+
+.titulo{
+    margin: 50px auto;
+    text-align: center;
+    color: #000;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.msg_erro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: 40px;
+    margin: -59px auto;
+     background-color: red;
+}
+.msg_erro h5{
+	margin: 10px;
+}
+.msg_salvar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 380px;
+    height: 40px;
+    margin: -59px auto;
+    background-color: green;
+}
+.msg_salvar h5{
+	margin: 10px;
+}
+</style>
+<body>
+
+	<div th:if="${session.usuarioLogado != null}">
+		   <header class="l-header" id="header">
+        <nav class="nav bd-grid">
+            <div class="nav__toggle" id="nav-toggle">
+                <a href="#"><img src="img/menu.png"></a>
+            </div>
+
+            <a href="#" class="nav__logo"><img src="../../static/img/logo.png"></a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#" class="nav__link active1"><img src="../img/home.png"></a></li>
+                    <li class="nav__item"><a href="#" class="nav__link"><img src="../img/user.png"></a></li>
+                    <li class="nav__item"><a href="#" class="nav__link"><img src="../img/settings.png"></a></li>
+                    <li class="nav__item"><a th:href="logout" class="nav__link"><img src="../img/log-out.png"></a></li>
+                    
+                     
+                </ul>
+            </div>
+            <div class="nav_shop">
+                <a href="#shop"><img src="img/shopping-cart.png"></a>
+            </div>
+        </nav>
+    </header>
+    <script src="JS/header.js"></script>
+	</div>
+	
+	<div class="hero">
+        <div class="form-box">
+           
+            <h1 class="titulo">Login</h1>
+
+            <form id="login" action="login" class="input-goup" method="post">
+            	<input type="hidden" name="id"> 
+                <input type="email"  name="email" class="input-field" placeholder="Email"  required>
+                <input type="password" name="senha" class="input-field" placeholder="Senha" required>     
+                <button type="submit" class="submit-btn">Log In</button>
+            </form> 
+            
+        </div>
+ 			<div th:replace="fragments/mensagem"></div>  
+        
+    </div>
+	<script type="text/javascript">
+	/* MENU SHOW */
+	const showMenu =(toggleId, navId)=>{
+	    const toggle =document.getElementById(toggleId),
+	    nav = document.getElementById(navId)
+
+	    if(toggle && nav){
+	        toggle.addEventListener('click', ()=>{
+	            nav.classList.toggle('show')
+	        })
+	    }
+	}
+	showMenu('nav-toggle','nav-menu')
+
+	/* REMOVE MENU */
+	const navLink = document.querySelectorAll('.nav__list'),
+	    navMenu = document.getElementById('nav-menu')
+
+	function linkAction(){
+	    navMenu.classList.remove('show')
+	}
+	navLink.forEach(n => n.addEventListener('click',linkAction))
+
+	/* SROLL SELECTIONS ACTIVE LINK */
+	const sections = document.querySelectorAll('section[id]')
+
+	window.addEventListener('scroll', scrollActive)
+
+	function scrollActive(){
+	    const scrollY = window.pageYOffset
+
+	    sections.forEach(current=>{
+	        const sectionHeight = current.offsetHeight
+	        const sectionTop = current.offsetTop - 50
+	        sectionId = current.getAttribute('id')
+
+	        if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+	            document.querySelector('.nav__menu a[href*='+ sectionId +']').classList.add('active1')
+	        }else{
+	            document.querySelector('.nav__menu a[href*='+ sectionId +']').classList.remove('active1')
+	        }
+	    })
+	}
+	/*CHANGE COLOR HEADER */
+	window.onscroll = ()=>{
+	    const nav = document.getElementById('header')
+	    if(this.scrollY >=200) nav.classList.add('scroll-header'); else nav.classList.remove('scroll-header')
+	}
+	</script>
+</body>
+</html>

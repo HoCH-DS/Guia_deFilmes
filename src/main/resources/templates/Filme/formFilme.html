@@ -126,8 +126,8 @@ span{
                 <input type="text" name="descricao" class="input-field" placeholder="Descrição" required th:value="${film?.descricao}" >    
                 <input type="text" name="classIndicativa" class="input-field" placeholder="Class Indicativa"  required th:value="${film?.classIndicativa}" >    
                 <input type="number" name="tempoFilme" class="input-field" placeholder="Tempo Filme" required th:value="${film?.tempoFilme}" >    
-	            
-	            <input type="file" name="fileFotos" multiple accept="image/*" class="input-field" placeholder="Tempo Filme" required  >    
+	            <input type="hidden" th:valeu="${film?.fotos}" name="fotos">
+	            <input type="file" name="fileFotos" multiple accept="image/*" class="input-field" placeholder="Tempo Filme" >    
                	
                	<div th:if="${film?.fotos?.length > 0}">
                		<h6>Fotos Cadastradas</h6>

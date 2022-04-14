@@ -49,7 +49,7 @@ public class FilmeController {
 		public String salvarFilmes(@Valid Filme film, BindingResult result,
 				RedirectAttributes attr, @RequestParam("fileFotos") MultipartFile[] fileFotos) {
 			//String para a URL das fotos
-			String fotos = "";
+			String fotos = film.getFotos();
 			
 			//percore cada arquivo que foi submetido no formulario
 			for (MultipartFile arquivo : fileFotos) {
@@ -133,10 +133,16 @@ public class FilmeController {
 		//EXCLUIR FIMES
 		@RequestMapping("excluirFilm")
 		public String excluirFilm(Long id) {
-			filRep.deleteById(id);
+			Filme film = filRep.findById(id).get();
+			if(film.getFotos().length() > 0 ) {
+				for (String foto : film.verFotos()) {
+					firebaseUtil.deletar(foto);
+				}
+			}
+			filRep.delete(film);
 			return "redirect:listarFilmes/1";
 		}
-	
+		
 		//METODO PARA EXCLUIR FOTO
 		@RequestMapping("excluirFotoFilm")
 		public String excluirFoto(Long id, int numFoto, Model model) {

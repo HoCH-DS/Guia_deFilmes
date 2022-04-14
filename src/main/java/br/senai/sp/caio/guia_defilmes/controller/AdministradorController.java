@@ -3,6 +3,7 @@ package br.senai.sp.caio.guia_defilmes.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
+import br.senai.sp.caio.guia_defilmes.annotation.Publico;
 import br.senai.sp.caio.guia_defilmes.model.Administrador;
 import br.senai.sp.caio.guia_defilmes.repository.AdminRepository;
 import br.senai.sp.caio.guia_defilmes.util.HashUtil;
@@ -32,6 +36,14 @@ public class AdministradorController {
 	public String formAdmin(Model model) {
 		return "Administrador/Admin";
 	}
+	
+	//CHAMA PAGINA INDEX
+	@Publico
+	@RequestMapping("Index")
+	public String formIndex(Model model) {
+		return "Index/index";
+	}
+	
 	//Salvar Admin
 	@RequestMapping(value = "salvarAdministrador", method = RequestMethod.POST)
 	public String salvarAdmin(@Valid Administrador admin, BindingResult result, RedirectAttributes attr) {
@@ -107,5 +119,29 @@ public class AdministradorController {
 	public String ExcluirAdmin(Long id) {
 		repository.deleteById(id);
 		return "redirect:listarAdmin/1";		
+	}
+	//LOGIN
+	@Publico
+	@RequestMapping("login")
+	public String login(Administrador admLogin, RedirectAttributes attr, HttpSession session) {
+		//buscar o adm no BD atraves do email e senha
+		Administrador admin = repository.findByEmailAndSenha(admLogin.getEmail(), admLogin.getSenha());
+		//verifica se existe o admin
+		if(admin == null) {
+			attr.addFlashAttribute("mensagem_erro", "Login e /ou senha invalido(s)");
+			return"redirect:Index";
+		}else {
+			//se não for nulo, salva na sessao e acessa o sistema
+			session.setAttribute("usuarioLogado", admin);
+			return "redirect:/listarFilmes/1";
+		}
+		
+	}
+	@RequestMapping("logout")
+	public String logout (HttpSession session) {
+		//elimina o usuario da session
+		session.invalidate();
+		//retorna para a pagina inicial
+		return"redirect:Index";
 	}
 }

@@ -20,6 +20,7 @@ import br.senai.sp.caio.guia_defilmes.repository.AvaliacaoRepository;
 @RestController
 @RequestMapping("/api/avaliacao")
 public class AvaliacaoController {
+	
 	@Autowired
 	private AvaliacaoRepository repository;
 	
